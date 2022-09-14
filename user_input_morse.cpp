@@ -6,8 +6,9 @@
 */
 // the setup function runs once when you press reset or power the board
 
-const int same_delay = 1000;
-int letter_delay = 3000;  
+const int same_delay = 1000;  //one unit delay
+int letter_delay = 3000;  //three unit delay
+int space_delay = 7000;   //seven unit delay
 int next_line = 5000; 
 const int arr_size = 50;
 char nameString[arr_size];
@@ -17,7 +18,7 @@ void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
   letter_delay -= same_delay; //to account for delay in interpret function.
-  next_line -= same_delay;
+  //next_line -= same_delay;
 }
 
 // the loop function runs over and over again forever
@@ -35,7 +36,12 @@ void blink_array(char nameString[])   //blinks the array
     if(nameString[i + 1] != '\0')
     {
       write_letter(nameString[i]);
-    } else break;
+      delay(letter_delay);
+    } else 
+    {
+      write_letter(nameString[i]);  //for the last letter
+      break;
+    }
   }
 
 }
@@ -60,7 +66,7 @@ void recieve_input(char nameString[])   //recieves input from user
 void dot()
 {
   digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);                       // wait for a second
+  delay(same_delay);                       // wait for one unit time
   digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
 }
 
@@ -68,7 +74,7 @@ void dot()
 void dash()
 {
   digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(3000);                       // wait for a second
+  delay(3*same_delay);                       // wait for three unit time
   digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
  }
 
@@ -94,7 +100,7 @@ void dash()
   }
   else if(i == 4)
   {
-    delay(letter_delay);    //for space between names;
+    delay(space_delay);    //for space between names;
   }
   else return;
  }
